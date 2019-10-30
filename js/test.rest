@@ -1,0 +1,10 @@
+https://rickandmortyapi.com/api/episode/1
+
+###
+
+https://rickandmortyapi.com/api/character/1
+
+###
+
+
+
