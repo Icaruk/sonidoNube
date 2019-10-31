@@ -92,7 +92,8 @@ function muestraTracks (info) {
 		
 		
 		// Le meto EH
-		nodo.addEventListener("dragstart", (ev) => drag(ev, _x.id) );
+		nodo.addEventListener("dragstart", (ev) => dragStart(ev, _x.id) );
+		nodo.addEventListener("dragend", dragEnd );
 		
 		
 		// Tamaño de la fuente del título
@@ -188,14 +189,27 @@ function pulsaBuscar () {
 
 
 
-function drag(ev, idTrack) {
+function dragStart(ev, idTrack) {
+	
 	ev.dataTransfer.setData("idTrack", idTrack);
-	console.log( idTrack );
+	
+	uti.showEle("zonaDrop", true);
+	uti.showEle("reproductor", false);	
+	
+};
+
+function dragEnd() {
+	
+	uti.showEle("zonaDrop", false);
+	uti.showEle("reproductor", true);	
+	
 };
 
 
 
+
 function allowDrop(ev) {
+	ev.stopPropagation();
 	ev.preventDefault();
 };
 
@@ -203,12 +217,12 @@ function allowDrop(ev) {
 
 function drop(ev) {
 	
+	ev.stopPropagation();
 	ev.preventDefault();
 	
 	let idTrack = ev.dataTransfer.getData("idTrack");
 	
 	uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
-	
 	
 };
 
@@ -228,74 +242,11 @@ uti.$("h_inputBusqueda").addEventListener("keydown", (ev) => {
 
 
 
-uti.$("h_inputBusqueda").addEventListener("dragover", allowDrop);
-uti.$("h_inputBusqueda").addEventListener("drop", (ev) => drop(ev) );
+uti.$("zonaDrop").addEventListener("dragover", allowDrop);
+uti.$("zonaDrop").addEventListener("drop", (ev) => drop(ev) );
 
 
-/*
-uti.$("input_users").addEventListener("keydown", (ev) => {
-	
-	if (ev.key == "Enter") {
-		
-		let busqueda = ev.target.value;
-		
-		busca("users", busqueda)
-		.then(function (res) {
-			
-			// Log
-			console.log( res );
-			
-			
-			// Limpio
-			limpiaResultados();
-			
-			
-			// Pinto
-			muestraUsers (res)
-			
-		});
-		
-	};
-});
-*/
-
-
-
-/*
-function Busqueda() {
-	
-	$('.lista').empty(); //Limpiamos la lista.
-	
-	var autor = $('input').val();
-	
-	
-	SC.initialize({
-		client_id: 'aa06b0630e34d6055f9c6f8beb8e02eb',
-	});
-	
-	
-	SC.get('/tracks', {
-		q: autor,
-	}).then(function (tracks) {
-		var numero = 0;
-		if (tracks.length > 12) {
-			numero = 12;
-		} else {
-			numero = tracks.length;
-		}
-		for (var i = 0; i < numero; i++) {
-			if (tracks[i].artwork_url !== null) {
-				$('.lista').append(
-					"<div class='imagen_mini col-xs-2'><img src='" +
-					tracks[i].artwork_url +
-					"' id ='" +
-					tracks[i].id +
-					"' draggable='true' ondragstart='drag(event)'></div>"
-				);
-			}
-		}
-	});
-}
-*/
-
+let muestraDrop = 0;
+uti.showEle("zonaDrop", muestraDrop);
+uti.showEle("reproductor", !muestraDrop);
 

@@ -132,20 +132,20 @@ const uti = {
 		/*
 			Muestra u oculta un elemento HTML, haciendo que siga ocupando espacio o no.
 			
-			uti.showEle(elemento, true); 			// muestra el elemento
+			uti.showEle(elemento, true); 			// muestra el elemento, y no oscupa espacio
 			uti.showEle(elemento, true, true); 		// muestra el elemento y hace que ocupe espacio
-			uti.showEle(elemento, false); 			// oculta el elemento
-			uti.showEle(elemento, false, true); 	// oculta el elemento, pero sigue ocupando espacio
+			uti.showEle(elemento, false); 			// oculta el elemento y no oscupa espacio
+			uti.showEle(elemento, false, true); 	// oculta el elemento y hace que ocupe espacio
 			
 		*/
 		
 		let ele = this.$(idEle);
-		let estadoDisplay = muestra ? "block" : "hidden";
+		let estadoDisplay = muestra ? "block" : "none";
 		let estadoVisibility = muestra ? "visible" : "hidden";
 		
 		
 		if (ocupaEspacio && !muestra) {
-			estado = muestra? "visible" : "hidden";
+			estadoDisplay = muestra? "block" : "hidden";
 		};
 		
 		
@@ -153,7 +153,7 @@ const uti = {
 			ele.style.display = estadoDisplay;
 			ele.style.visibility = estadoVisibility;
 		} else {
-			ele.style.display = estado;
+			ele.style.display = estadoDisplay;
 		};
 		
 		
