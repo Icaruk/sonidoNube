@@ -1,5 +1,100 @@
 
 * {
     box-sizing: border-box;
+    color: rgb(22, 22, 22);
 }
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font: 12px/1.4 "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Garuda,Verdana,Tahoma,sans-serif;
+    background: rgb(242,242,242);
+    color: #333;
+}
+
+.main {
+    margin-left: 64px;
+    margin-right: 64px;
+    background: white;
+    height: 100vh;
+}
+
+
+
+
+/* **************** HEADER **************** */
+
+.cajaHeader {
+    margin-top: 0;
+    background: rgb(51,51,51);
+    height: 48px;
+    width: 100%;
+    font: 100 14px/1.5 Interstate,Lucida Grande,Arial,sans-serif;
+}
+
+.interiorHeader {
+    display: flex;
+    margin-left: 64px;
+    margin-right: 64px;
+}
+
+.h_logo {
+    height: 48px;
+}
+
+.h_busqueda {
+    height: 50%;
+}
+
+
+/* **************** RESULTADOS **************** */
+
+.cajaResultados {
+    padding-top: 64px;
+}
+
+
+
+
+
+
+/* **************** USERS **************** */
+
+.tarjetaUsuario {
+    display: flex;
+    width: 100%;
+};
+
+.tu_colIzq {
+    width: 30%;
+}
+.tu_colDer {
+   width: 100%;
+}
+
+.tu_img {
+    width: 100px;
+}
+
+.tu_name {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.tu_online {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.tu_cajaSeguidores {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+
 

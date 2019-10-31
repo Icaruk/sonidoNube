@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Rick y noseké</title>
+	<title>sonidoNube</title>
 	<link rel="stylesheet" href="css/style.css">
 	
 </head>
@@ -13,24 +13,65 @@
 
 <body>
 	
-	<div>
-		<input id="input_epi" type="text">
-		<button id="b_epi">BUSCAR</button>
-	</div>
-
-	
-	
-	<div>
-		<h1>RES:</h1>
-		<div id="respuesta">
-			test
+	<div class="cajaHeader">
+		<div class="interiorHeader">
+			<img class="h_logo" src="img/logo_header.jpg">
+			<div>
+				<input class="h_busqueda" type="text" placeholder="Busqueda">
+			</div>
+			
 		</div>
 	</div>
 	
+	<div class="main">
+		
+		<div>
+			<input id="input_tracks" type="text" placeholder="Track">
+		</div>
+		<div>
+			<input id="input_users" type="text" placeholder="User">
+		</div>
+		
+		
+		<div class="cajaResultados">
+			<div id="resultados">
+				<!-- Aquí irían los resultados -->
+			</div>
+		</div>
+		
+		
+		<div class="tarjetaUsuario">
+			
+			<div class="tu_colIzq">
+				<img class="tu_img" src="https://i1.sndcdn.com/avatars-000618094599-7x8i6k-large.jpg" />
+				<p class="tu_online">OFFLINE</p>
+				
+				<div class="tu_cajaSeguidores">
+					<img src="img/followers.png">
+					<div>5942</div>
+				</div>
+				
+				
+			</div>
+			
+			<div class="tu_colDer">
+				<a href="" target="_blank" rel="noopener noreferrer">
+					<p class="tu_name">Pepé</p>
+				</a>
+				
+				Mgmt. - j@foil.management World Bookings. - james.ruari@paramountartists.com Say hi. - sippinlemonfanta@gmail.com please use e-mail wisely :)
+				
+			</div>
+			
+
+
+		</div>
+	
+	</div>
 	
 	
 	<script src="https://connect.soundcloud.com/sdk/sdk-3.3.2.js"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 	<script src="js/uti.js"></script>
 	<script src="js/app.js"></script>
 	
