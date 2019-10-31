@@ -48,7 +48,8 @@ async function busca(modo, busqueda) {
 function limpiaResultados() {
 	
 	// Limpio resultados anteriores
-	uti.$("resultados").innerHTML = "";
+	uti.$("resultados_parte1").innerHTML = "";
+	uti.$("resultados_parte2").innerHTML = "";
 	
 };
 
@@ -56,8 +57,9 @@ function limpiaResultados() {
 
 function muestraTracks (info) {
 	
-	// Itero
-	maxIdx = info.length -1;
+	// Datos
+	cantidad = info.length;
+	maxIdx = cantidad -1;
 	
 	
 	// Itero el objeto
@@ -67,23 +69,47 @@ function muestraTracks (info) {
 		
 		
 		// Saco algunos datos
-		let img = _x.artwork_url ? _x.artwork_url : "https://i1.sndcdn.com/avatars-000681921569-32qkcn-t500x500.jpg";
+		let strImg = _x.artwork_url ? _x.artwork_url : "https://i1.sndcdn.com/avatars-000681921569-32qkcn-t500x500.jpg";
+		let strTitulo = _x.title;
+		
+		
+		// Limito caracteres del título
+		let maxChars = 60;
+		let charsTitulo = strTitulo.length;
+		
+		if (charsTitulo > maxChars) {
+			strTitulo = strTitulo.substring (0, maxChars - 3) + "...";
+			charsTitulo = strTitulo.length;
+		};		
 		
 		
 		// Creo hijo
-		let nodo = createNode (`<div>
-			<h1>${_x.title}</h1>
-			<img class="img" src="${img}" />
-			${_x.user.username}
-			${_x.id}
-			
+		let nodo = createNode (`<div class="tarjetaTrack">
+			<img class="tr_img" src="${strImg}" draggable="true" />
+			<a href="${_x.permalink_url}" class="tr_artista">${_x.user.username}</a>
+			<p class="tr_titulo">${strTitulo}</p>
 		</div>`);
 		
-		console.log("nodo: ", nodo );
+		
+		// Le meto EH
+		nodo.addEventListener("dragstart", (ev) => drag(ev, _x.id) );
 		
 		
-		// Lo inyecto
-		uti.$("resultados").appendChild(nodo);
+		// Tamaño de la fuente del título
+		if (charsTitulo > 20) {
+			
+			let nodoTitulo = nodo.querySelector(".tr_titulo");
+			let size = uti.minMax (20 - (charsTitulo * 0.22), 11, 20);
+			
+			nodoTitulo.style.fontSize = `${size}px`;
+			
+		};
+		
+		
+		
+		// Lo inyecto donde toque
+		let idPadre = _i <= 5 ? "resultados_parte1" : "resultados_parte2";
+		uti.$(idPadre).appendChild(nodo);
 		
 		
 	};
@@ -94,7 +120,6 @@ function muestraTracks (info) {
 
 function muestraUsers (info) {
 	
-	// Itero
 	maxIdx = info.length -1;
 	
 	
@@ -133,39 +158,81 @@ function muestraUsers (info) {
 
 
 
+function pulsaBuscar () {
+	
+	let busqueda = uti.$("h_inputBusqueda").value;
+		
+	busca("tracks", busqueda)
+	.then(function (res) {
+		
+		// Log
+		console.log( res );
+		
+		
+		// Limpio
+		limpiaResultados();
+		
+		
+		// Pinto
+		muestraTracks (res);
+		
+		
+		// Meto la primera al reproductor
+		let idTrack = res[0].id;
+		uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
+		
+			
+	});	
+	
+};
+
+
+
+function drag(ev, idTrack) {
+	ev.dataTransfer.setData("idTrack", idTrack);
+	console.log( idTrack );
+};
+
+
+
+function allowDrop(ev) {
+	ev.preventDefault();
+};
+
+
+
+function drop(ev) {
+	
+	ev.preventDefault();
+	
+	let idTrack = ev.dataTransfer.getData("idTrack");
+	
+	uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
+	
+	
+};
+
+
+
 
 
 
 // EHs
-uti.$("input_tracks").addEventListener("keydown", (ev) => {
-	
+uti.$("h_iconoLupa").addEventListener("click", pulsaBuscar);
+uti.$("h_inputBusqueda").addEventListener("keydown", (ev) => {
 	if (ev.key == "Enter") {
-		
-		let busqueda = ev.target.value;
-		
-		busca("tracks", busqueda)
-		.then(function (res) {
-			
-			// Log
-			console.log( res );
-			
-			
-			// Limpio
-			limpiaResultados();
-			
-			
-			// Pinto
-			muestraTracks (res)
-				
-		});
-		
-		
+		pulsaBuscar();
 	};
 	
 });
 
 
 
+uti.$("h_inputBusqueda").addEventListener("dragover", allowDrop);
+uti.$("h_inputBusqueda").addEventListener("drop", (ev) => drop(ev) );
+
+
+/*
 uti.$("input_users").addEventListener("keydown", (ev) => {
 	
 	if (ev.key == "Enter") {
@@ -190,7 +257,7 @@ uti.$("input_users").addEventListener("keydown", (ev) => {
 		
 	};
 });
-
+*/
 
 
 

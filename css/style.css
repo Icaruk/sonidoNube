@@ -43,9 +43,26 @@ body {
     height: 48px;
 }
 
-.h_busqueda {
-    height: 50%;
+
+/* BUSQUEDA */
+.cajaBusqueda {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+    width: 18%;
 }
+
+.h_inputBusqueda {
+    height: 50%;
+    width: 90%;
+}
+
+.h_iconoLupa {
+    position: relative;
+    width: 20px;
+    right: 24px;
+}
+
 
 
 /* **************** RESULTADOS **************** */
@@ -54,12 +71,14 @@ body {
     padding-top: 64px;
 }
 
+.cajaResultadosParcial {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
 
 
-
-
-
-/* **************** USERS **************** */
+/* USERS */
 
 .tarjetaUsuario {
     display: flex;
@@ -73,7 +92,7 @@ body {
    width: 100%;
 }
 
-.tu_img {
+.img100 {
     width: 100px;
 }
 
@@ -95,6 +114,39 @@ body {
     justify-content: center;
     align-content: center;
 }
+
+
+/* TRACKS */
+
+.tarjetaTrack {
+    width: 20%;
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tr_img {
+    width: 100px;
+    align-self: center;
+    border-radius: 10%;
+}
+
+.tr_artista {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font-size: 10px;
+    color: rgb(99, 99, 99);
+}
+
+.tr_titulo {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font-size: 15px;
+    text-align: center;
+}
+
 
 
 

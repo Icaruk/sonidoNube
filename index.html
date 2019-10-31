@@ -6,44 +6,61 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>sonidoNube</title>
 	<link rel="stylesheet" href="css/style.css">
-	
+	<base href="http://127.0.0.1:5500/">
 </head>
 
 
 
 <body>
 	
+	<!-- HEADER -->
 	<div class="cajaHeader">
 		<div class="interiorHeader">
 			<img class="h_logo" src="img/logo_header.jpg">
-			<div>
-				<input class="h_busqueda" type="text" placeholder="Busqueda">
+			<div class="cajaBusqueda">
+				<input class="h_inputBusqueda" id="h_inputBusqueda" type="text" placeholder="Buscar">
+				<img class="h_iconoLupa" id="h_iconoLupa" src="img/lupa.png">
 			</div>
 			
 		</div>
 	</div>
 	
+	
+	
+	<!-- MAIN -->
 	<div class="main">
 		
-		<div>
-			<input id="input_tracks" type="text" placeholder="Track">
-		</div>
-		<div>
-			<input id="input_users" type="text" placeholder="User">
-		</div>
+		<!-- REPRODUCTOR -->
+		<iframe id="reproductor" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+			src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/">
+		</iframe>
 		
 		
-		<div class="cajaResultados">
-			<div id="resultados">
+		<!-- RESULTADOS -->
+		<div class="cajaResultados" id="resultados">
+			<div id="resultados_parte1" class="cajaResultadosParcial">
+				<!-- Aquí irían los resultados -->
+			</div>
+			<div id="resultados_parte2" class="cajaResultadosParcial">
 				<!-- Aquí irían los resultados -->
 			</div>
 		</div>
 		
 		
-		<div class="tarjetaUsuario">
+		
+		<!-- VISTA TRACKS -->
+		<!-- <div class="tarjetaTrack">
+			<img class="tr_img" src="https://i1.sndcdn.com/artworks-000423100596-c51izv-large.jpg" />
+			<p class="tr_artista">Nombre de artista bastante largo</p>
+			<p class="tr_titulo">Título muy muy largo madre mia</p>
+		</div> -->
+
+		
+		<!-- VISTA USUARIOS -->
+		<!-- <div class="tarjetaUsuario">
 			
 			<div class="tu_colIzq">
-				<img class="tu_img" src="https://i1.sndcdn.com/avatars-000618094599-7x8i6k-large.jpg" />
+				<img class="img100" src="https://i1.sndcdn.com/avatars-000618094599-7x8i6k-large.jpg" />
 				<p class="tu_online">OFFLINE</p>
 				
 				<div class="tu_cajaSeguidores">
@@ -63,13 +80,14 @@
 				
 			</div>
 			
-
-
-		</div>
-	
+		</div> -->
+		
 	</div>
 	
 	
+	
+	<!-- SCRIPTS -->
+	<script src="https://w.soundcloud.com/player/api.js"></script>
 	<script src="https://connect.soundcloud.com/sdk/sdk-3.3.2.js"></script>
 	<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 	<script src="js/uti.js"></script>
