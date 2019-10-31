@@ -103,7 +103,7 @@ const uti = {
 		
 	},
 	
-	fadeOut(idEle) {
+	fadeOut(idEle, ms = 100) {
 		/*
 			Desvanece un elemento HTML.
 			
@@ -125,7 +125,7 @@ const uti = {
 				clearInterval(loop);
 			}
 			
-		}, 100);
+		}, ms);
 	},
 	
 	showEle (idEle, muestra, ocupaEspacio = false) {
@@ -156,6 +156,21 @@ const uti = {
 			ele.style.display = estadoDisplay;
 		};
 		
+		
+	},
+
+	createNode (str) {
+		/*
+			Crea un nodo con texto dentro, y lo devuelve.
+			
+			uti.createNode (`<div class="clase "></div>`)
+		*/
+		
+		let padre = document.createElement("div");
+		padre.innerHTML = str;
+		
+		
+		return padre.firstChild;
 		
 	},
 

@@ -59,7 +59,7 @@ function muestraTracks (info) {
 	
 	// Datos
 	cantidad = info.length;
-	maxIdx = cantidad -1;
+	maxIdx = uti.minMax (cantidad -1, 0, 10);
 	
 	
 	// Itero el objeto
@@ -94,6 +94,7 @@ function muestraTracks (info) {
 		// Le meto EH
 		nodo.addEventListener("dragstart", (ev) => dragStart(ev, _x.id) );
 		nodo.addEventListener("dragend", dragEnd );
+		nodo.addEventListener("click", () => play(_x.id) );
 		
 		
 		// Tamaño de la fuente del título
@@ -205,15 +206,10 @@ function dragEnd() {
 	
 };
 
-
-
-
 function allowDrop(ev) {
 	ev.stopPropagation();
 	ev.preventDefault();
 };
-
-
 
 function drop(ev) {
 	
@@ -221,11 +217,17 @@ function drop(ev) {
 	ev.preventDefault();
 	
 	let idTrack = ev.dataTransfer.getData("idTrack");
-	
-	uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
+	play(idTrack);
 	
 };
 
+
+
+function play (idTrack) {
+	uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
+	console.log( SC.Widget );
+	
+};
 
 
 
