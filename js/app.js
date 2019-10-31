@@ -1,4 +1,6 @@
 
+// limit pagesize
+
 async function busca(modo, busqueda) {
 	/*
 		busca("tracks", busqueda)
