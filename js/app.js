@@ -1,16 +1,4 @@
 
-function createNode (str) {
-	
-	let padre = document.createElement("div");
-	padre.innerHTML = str;
-	
-	
-	return padre.firstChild;
-	
-};
-
-
-
 async function busca(modo, busqueda) {
 	/*
 		busca("tracks", busqueda)
@@ -59,7 +47,7 @@ function muestraTracks (info) {
 	
 	// Datos
 	cantidad = info.length;
-	maxIdx = uti.minMax (cantidad -1, 0, 10);
+	maxIdx = uti.minMax (cantidad -1, 0, 9);
 	
 	
 	// Itero el objeto
@@ -84,7 +72,7 @@ function muestraTracks (info) {
 		
 		
 		// Creo hijo
-		let nodo = createNode (`<div class="tarjetaTrack">
+		let nodo = uti.createNode (`<div class="tarjetaTrack">
 			<img class="tr_img" src="${strImg}" draggable="true" />
 			<a href="${_x.permalink_url}" class="tr_artista">${_x.user.username}</a>
 			<p class="tr_titulo">${strTitulo}</p>
@@ -110,7 +98,7 @@ function muestraTracks (info) {
 		
 		
 		// Lo inyecto donde toque
-		let idPadre = _i <= 5 ? "resultados_parte1" : "resultados_parte2";
+		let idPadre = _i < (maxIdx/2) ? "resultados_parte1" : "resultados_parte2";
 		uti.$(idPadre).appendChild(nodo);
 		
 		
@@ -122,7 +110,9 @@ function muestraTracks (info) {
 
 function muestraUsers (info) {
 	
-	maxIdx = info.length -1;
+	// Datos
+	cantidad = info.length;
+	maxIdx = uti.minMax (cantidad -1, 0, 13);	
 	
 	
 	// Itero el objeto
@@ -133,25 +123,21 @@ function muestraUsers (info) {
 		
 		// Saco algunos datos
 		let str_img = _x.avatar_url ? _x.avatar_url : "https://i1.sndcdn.com/avatars-000681921569-32qkcn-t500x500.jpg";
-		let str_description = _x.description ? _x.description : "";
 		let str_online = _x.online ? "ONLINE" : "OFFLINE";
 		
 		
 		// Creo hijo
-		let nodo = createNode (`<div>
-			<h1><a href="${_x.permalink_url}" target="_blank" rel="noopener noreferrer">${_x.username}</a></h1>
-			<img class="img" src="${str_img}" />
+		let nodo = uti.createNode (`<div class="tarjetaUser">
+			<img class="tu_img" src="${str_img}" />
+			<a href="${_x.permalink_url}" class="tr_artista">${_x.username}</a>
 			${str_online}
-			${str_description}
-			
-			Followers: ${_x.followers_count}
-			Following: ${_x.following_count}
-			
 		</div>`);
 		
 		
-		// Lo inyecto
-		uti.$("resultados").appendChild(nodo);
+		
+		// Lo inyecto donde toque
+		let idPadre = _i < (maxIdx/2) ? "resultados_parte1" : "resultados_parte2";
+		uti.$(idPadre).appendChild(nodo);
 		
 		
 	};
@@ -163,8 +149,8 @@ function muestraUsers (info) {
 function pulsaBuscar () {
 	
 	let busqueda = uti.$("h_inputBusqueda").value;
-		
-	busca("tracks", busqueda)
+	
+	busca(tipoBusqueda, busqueda)
 	.then(function (res) {
 		
 		// Log
@@ -176,7 +162,12 @@ function pulsaBuscar () {
 		
 		
 		// Pinto
-		muestraTracks (res);
+		if (tipoBusqueda == "tracks") {
+			muestraTracks (res);
+		} else {
+			muestraUsers (res);
+		};
+		
 		
 		
 		// Meto la primera al reproductor
@@ -231,6 +222,25 @@ function play (idTrack) {
 
 
 
+function seleccionaTipoBusqueda(tipo) {
+	
+	if (tipoBusqueda != tipo) {
+		uti.$("h_track").classList.toggle("h_selected");
+		uti.$("h_user").classList.toggle("h_selected");
+		
+		tipoBusqueda = tipo;
+		
+		pulsaBuscar ();
+		
+	};
+	
+};
+
+
+
+// Vars
+var tipoBusqueda = "tracks";
+
 
 
 // EHs
@@ -243,9 +253,13 @@ uti.$("h_inputBusqueda").addEventListener("keydown", (ev) => {
 });
 
 
-
 uti.$("zonaDrop").addEventListener("dragover", allowDrop);
 uti.$("zonaDrop").addEventListener("drop", (ev) => drop(ev) );
+
+uti.$("h_track").addEventListener("click", () => seleccionaTipoBusqueda("tracks") );
+uti.$("h_user").addEventListener("click", () => seleccionaTipoBusqueda("users") );
+
+
 
 
 let muestraDrop = 0;

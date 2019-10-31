@@ -2,6 +2,7 @@
 * {
     box-sizing: border-box;
     color: rgb(22, 22, 22);
+    outline: 0 none;
 }
 
 .cenXY {
@@ -96,18 +97,28 @@ body {
     display: flex;
     align-items: center;
     margin-left: 12px;
-    width: 18%;
+    width: 25%;
 }
 
 .h_inputBusqueda {
     height: 50%;
-    width: 90%;
+    width: 70%;
 }
 
 .h_iconoLupa {
     position: relative;
     width: 20px;
     right: 24px;
+}
+
+.h_iconos {
+    width: 22px;
+    margin-right: 10px;
+}
+
+.h_selected {
+    background: chocolate;
+    border-radius: 30%;
 }
 
 
@@ -128,20 +139,22 @@ body {
 
 /* USERS */
 
-.tarjetaUsuario {
+.tarjetaUser {
+    width: 20%;
+    height: 25%;
     display: flex;
-    width: 100%;
-};
-
-.tu_colIzq {
-    width: 30%;
-}
-.tu_colDer {
-   width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    
+    margin-left: 5px;
 }
 
-.img100 {
+.tu_img {
     width: 100px;
+    align-self: center;
+    border-radius: 50%;
 }
 
 .tu_name {
@@ -197,7 +210,5 @@ body {
     font-size: 15px;
     text-align: center;
 }
-
-
 
 
