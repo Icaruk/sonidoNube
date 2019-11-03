@@ -1,5 +1,6 @@
 
-// limit pagesize
+// limit
+
 
 async function busca(modo, busqueda) {
 	/*
@@ -46,7 +47,11 @@ function limpiaResultados() {
 
 
 function muestraTracks (info) {
+
+	// Muestro reproductor
+	uti.showEle("reproductor", true);
 	
+		
 	// Datos
 	cantidad = info.length;
 	maxIdx = uti.minMax (cantidad -1, 0, 9);
@@ -111,6 +116,10 @@ function muestraTracks (info) {
 
 
 function muestraUsers (info) {
+
+	// Oculto reproductor
+	uti.showEle("reproductor", false);
+	
 	
 	// Datos
 	cantidad = info.length;
@@ -266,5 +275,5 @@ uti.$("h_user").addEventListener("click", () => seleccionaTipoBusqueda("users") 
 
 let muestraDrop = 0;
 uti.showEle("zonaDrop", muestraDrop);
-uti.showEle("reproductor", !muestraDrop);
+uti.showEle("reproductor", muestraDrop);
 

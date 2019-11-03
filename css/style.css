@@ -35,8 +35,8 @@ body {
 /* **************** MAIN **************** */
 
 .main {
-    margin-left: 64px;
-    margin-right: 64px;
+    margin-left: 128px;
+    margin-right: 128px;
     background: white;
     height: 100vh;
 }
