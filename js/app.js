@@ -1,14 +1,17 @@
 
 /*
-	Fecha de subida
-	Limit
+	Pendiente:
+		- Terminar buscar todas las pistas del username al hacer click en un usuario
+	.
+
 */
 
 
-async function busca(modo, busqueda) {
+async function busca(modo, busqueda, filtroUsername = "") {
 	/*
-		busca("tracks", busqueda)
-		busca("users", busqueda)
+		busca("tracks", "Amor");			// Busca los tracks que coincidan con "Amor"
+		busca("tracks", "", "Pepito"); 		// busca todas las pistas de pepito
+		busca("users", "Felipe")			// busca a todos los usuarios que se llamen Felipe
 	*/
 	
 	
@@ -29,6 +32,7 @@ async function busca(modo, busqueda) {
 	// Petición
 	let promise = SC.get(`/${modo}`, {
 		q: busqueda,
+		username: filtroUsername,
 	});
 	
 	
@@ -50,13 +54,11 @@ function limpiaResultados() {
 
 
 function muestraTracks (info) {
-
-	console.log( info );
-
+	
 	// Muestro reproductor
 	uti.showEle("reproductor", true);
 	
-		
+	
 	// Datos
 	cantidad = info.length;
 	maxIdx = uti.minMax (cantidad -1, 0, 9);
@@ -85,7 +87,7 @@ function muestraTracks (info) {
 		if (charsTitulo > maxChars) {
 			strTitulo = strTitulo.substring (0, maxChars - 3) + "...";
 			charsTitulo = strTitulo.length;
-		};		
+		};
 		
 		
 		// Creo hijo
@@ -155,6 +157,9 @@ function muestraUsers (info) {
 			${str_online}
 		</div>`);
 		
+		
+		// EHs
+		nodo.addEventListener("click", pulsaBuscar);
 		
 		
 		// Lo inyecto donde toque
