@@ -1,5 +1,8 @@
 
-// limit
+/*
+	Fecha de subida
+	Limit
+*/
 
 
 async function busca(modo, busqueda) {
@@ -48,6 +51,8 @@ function limpiaResultados() {
 
 function muestraTracks (info) {
 
+	console.log( info );
+
 	// Muestro reproductor
 	uti.showEle("reproductor", true);
 	
@@ -58,6 +63,8 @@ function muestraTracks (info) {
 	
 	
 	// Itero el objeto
+	let granTochoHtml = "";
+	
 	for (let _i = 0; _i <= maxIdx; _i++) {
 		
 		let _x = info[_i];
@@ -66,6 +73,9 @@ function muestraTracks (info) {
 		// Saco algunos datos
 		let strImg = _x.artwork_url ? _x.artwork_url : "https://i1.sndcdn.com/avatars-000681921569-32qkcn-t500x500.jpg";
 		let strTitulo = _x.title;
+		
+		let fecha = new Date (_x.created_at);
+		let strFecha = fecha.getFullYear();
 		
 		
 		// Limito caracteres del título
@@ -83,6 +93,7 @@ function muestraTracks (info) {
 			<img class="tr_img" src="${strImg}" draggable="true" />
 			<a href="${_x.permalink_url}" class="tr_artista">${_x.user.username}</a>
 			<p class="tr_titulo">${strTitulo}</p>
+			<p class="tr_artista">${strFecha}</p>
 		</div>`);
 		
 		
@@ -183,7 +194,9 @@ function pulsaBuscar () {
 		
 		// Meto la primera al reproductor
 		let idTrack = res[0].id;
-		uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
+		
+		// uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
+		play (idTrack);
 		
 			
 	});	
@@ -226,8 +239,18 @@ function drop(ev) {
 
 
 function play (idTrack) {
-	uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
-	console.log( SC.Widget );
+	
+	// uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
+	
+		
+	// widget.load(`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`, {auto_play: true, show_playcount: true});
+	widget.load(`https%3A//api.soundcloud.com/tracks/${idTrack}`, {
+		auto_play: true,
+		show_playcount: true,
+		sharing: false
+	});
+	
+	// widget.play(); // no es necesario por el autoplay
 	
 };
 
@@ -272,8 +295,37 @@ uti.$("h_user").addEventListener("click", () => seleccionaTipoBusqueda("users") 
 
 
 
-
+// Init
 let muestraDrop = 0;
+
 uti.showEle("zonaDrop", muestraDrop);
 uti.showEle("reproductor", muestraDrop);
+
+
+
+function getWidget() {
+	
+	let widgetIframe = document.getElementById("reproductor");
+	let widget = SC.Widget(widgetIframe);
+	let newSoundUrl = 'https://api.soundcloud.com/tracks/13692671';
+	
+	
+	widget.bind(SC.Widget.Events.READY, function () {
+		
+		// load new widget
+		widget.bind(SC.Widget.Events.FINISH, function () {
+			widget.load(newSoundUrl, {
+				show_artwork: true
+			});
+		});
+		
+	});
+	
+	
+	return widget;
+	
+};
+
+var widget = getWidget();
+
 
