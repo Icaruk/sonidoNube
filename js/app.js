@@ -1,16 +1,19 @@
 
 /*
 	Pendiente:
-		- Terminar buscar todas las pistas del username al hacer click en un usuario
+		- Decir algo cuando no hay resultados (en users y tracks)
+		- Pillar la foto placeholder y bajarle la saturación
+		- Atajos de teclado (mostrarlos en un icono de teclado)
+		- Tooltips
+		- Paginación https://developers.soundcloud.com/docs/api/guide#pagination
 	.
 
 */
 
 
-async function busca(modo, busqueda, filtroUsername = "") {
+async function busca(modo, busqueda) {
 	/*
 		busca("tracks", "Amor");			// Busca los tracks que coincidan con "Amor"
-		busca("tracks", "", "Pepito"); 		// busca todas las pistas de pepito
 		busca("users", "Felipe")			// busca a todos los usuarios que se llamen Felipe
 	*/
 	
@@ -31,13 +34,13 @@ async function busca(modo, busqueda, filtroUsername = "") {
 	
 	// Petición
 	let promise = SC.get(`/${modo}`, {
-		q: busqueda,
-		username: filtroUsername,
+		q: busqueda
 	});
 	
 	
 	// Return
 	return promise;
+	
 	
 };
 
@@ -61,7 +64,7 @@ function muestraTracks (info) {
 	
 	// Datos
 	cantidad = info.length;
-	maxIdx = uti.minMax (cantidad -1, 0, 9);
+	maxIdx = uti.minMax (cantidad - 1, 0, 9);
 	
 	
 	// Itero el objeto
@@ -159,7 +162,7 @@ function muestraUsers (info) {
 		
 		
 		// EHs
-		nodo.addEventListener("click", pulsaBuscar);
+		nodo.addEventListener("click", () => pulsaBuscar(_x.username) );
 		
 		
 		// Lo inyecto donde toque
@@ -173,15 +176,35 @@ function muestraUsers (info) {
 
 
 
-function pulsaBuscar () {
+function pulsaBuscar (userName = "") {
 	
+	// Obtengo el valor del campo de búsqueda
 	let busqueda = uti.$("h_inputBusqueda").value;
 	
-	busca(tipoBusqueda, busqueda)
-	.then(function (res) {
+	
+	// Busco info
+	let promesa;
+	
+	if (userName == "") { // búsqueda de track
+		
+		promesa = busca(tipoBusqueda, busqueda);
+		
+	} else { // búsqueda de todas las tracks de ese username
+		
+		seleccionaTipoBusqueda("tracks", false);
+		
+		uti.$("h_inputBusqueda").value = userName;
+		promesa = busca(tipoBusqueda, userName);
+		
+	};
+	
+	
+	
+	// La pinto
+	promesa.then(function (res) {
 		
 		// Log
-		console.log( res );
+		// console.log( res );
 		
 		
 		// Limpio
@@ -191,19 +214,21 @@ function pulsaBuscar () {
 		// Pinto
 		if (tipoBusqueda == "tracks") {
 			muestraTracks (res);
+			
+			// Meto la primera al reproductor y reproduzco
+			let idTrack = res[0].id;
+			play (idTrack);
+			
 		} else {
 			muestraUsers (res);
 		};
 		
 		
 		
-		// Meto la primera al reproductor
-		let idTrack = res[0].id;
-		
 		// uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
-		play (idTrack);
 		
-			
+		
+		
 	});	
 	
 };
@@ -261,15 +286,17 @@ function play (idTrack) {
 
 
 
-function seleccionaTipoBusqueda(tipo) {
+function seleccionaTipoBusqueda(tipo, buscar = true) {
 	
 	if (tipoBusqueda != tipo) {
-		uti.$("h_track").classList.toggle("h_selected");
-		uti.$("h_user").classList.toggle("h_selected");
+		uti.$("h_tracks").classList.toggle("h_selected");
+		uti.$("h_users").classList.toggle("h_selected");
 		
 		tipoBusqueda = tipo;
 		
-		pulsaBuscar ();
+		if (buscar) {
+			pulsaBuscar ();
+		};
 		
 	};
 	
@@ -283,7 +310,7 @@ var tipoBusqueda = "tracks";
 
 
 // EHs
-uti.$("h_iconoLupa").addEventListener("click", pulsaBuscar);
+uti.$("h_iconoLupa").addEventListener("click", pulsaBuscar() );
 uti.$("h_inputBusqueda").addEventListener("keydown", (ev) => {
 	if (ev.key == "Enter") {
 		pulsaBuscar();
@@ -295,19 +322,20 @@ uti.$("h_inputBusqueda").addEventListener("keydown", (ev) => {
 uti.$("zonaDrop").addEventListener("dragover", allowDrop);
 uti.$("zonaDrop").addEventListener("drop", (ev) => drop(ev) );
 
-uti.$("h_track").addEventListener("click", () => seleccionaTipoBusqueda("tracks") );
-uti.$("h_user").addEventListener("click", () => seleccionaTipoBusqueda("users") );
+uti.$("h_tracks").addEventListener("click", () => seleccionaTipoBusqueda("tracks") );
+uti.$("h_users").addEventListener("click", () => seleccionaTipoBusqueda("users") );
 
 
 
+// -------------------------
 // Init
-let muestraDrop = 0;
+// -------------------------
 
-uti.showEle("zonaDrop", muestraDrop);
-uti.showEle("reproductor", muestraDrop);
+// Oculto la zona de drop
+uti.showEle("zonaDrop", false);
 
 
-
+// Obtengo el widget
 function getWidget() {
 	
 	let widgetIframe = document.getElementById("reproductor");
@@ -332,5 +360,7 @@ function getWidget() {
 };
 
 var widget = getWidget();
+
+
 
 
