@@ -381,7 +381,7 @@ uti.$("h_inputBusqueda").addEventListener("keydown", (ev) => {
 });
 
 uti.$("zonaDrop").addEventListener("dragover", allowDrop);
-uti.$("zonaDrop").addEventListener("drop", (ev) => drop(ev) );
+uti.$("zonaDrop").addEventListener("drop", drop );
 
 uti.$("h_tracks").addEventListener("click", () => seleccionaTipoBusqueda("tracks") );
 uti.$("h_users").addEventListener("click", () => seleccionaTipoBusqueda("users") );
