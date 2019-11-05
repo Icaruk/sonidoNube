@@ -1,13 +1,9 @@
 
 /*
 	Pendiente:
-		- Decir algo cuando no hay resultados (en users y tracks)
-		- Pillar la foto placeholder y bajarle la saturación
-		- Atajos de teclado (mostrarlos en un icono de teclado)
-		- Tooltips
 		- Paginación https://developers.soundcloud.com/docs/api/guide#pagination
 	.
-
+	
 */
 
 
@@ -76,7 +72,7 @@ function muestraTracks (info) {
 		
 		
 		// Saco algunos datos
-		let strImg = _x.artwork_url ? _x.artwork_url : "https://i1.sndcdn.com/avatars-000681921569-32qkcn-t500x500.jpg";
+		let strImg = _x.artwork_url ? _x.artwork_url : "/img/artwork_default.jpg"; // https://i1.sndcdn.com/avatars-000681921569-32qkcn-t500x500.jpg
 		let strTitulo = _x.title;
 		
 		let fecha = new Date (_x.created_at);
@@ -175,6 +171,25 @@ function muestraUsers (info) {
 };
 
 
+function muestraNoResultados () {
+	
+	// Muestro reproductor
+	uti.showEle("reproductor", true);
+	
+	
+	// Creo hijo
+	let nodo = uti.createNode (`<div class="tarjetaTrack">
+		<p class="tr_titulo">No hay resultados con esa búsqueda.</p>
+	</div>`);
+	
+	
+	// Lo inyecto donde toque
+	uti.$("resultados_parte1").appendChild(nodo);
+	
+	
+};
+
+
 
 function pulsaBuscar (userName = "") {
 	
@@ -204,7 +219,7 @@ function pulsaBuscar (userName = "") {
 	promesa.then(function (res) {
 		
 		// Log
-		// console.log( res );
+		console.log( res );
 		
 		
 		// Limpio
@@ -212,17 +227,25 @@ function pulsaBuscar (userName = "") {
 		
 		
 		// Pinto
-		if (tipoBusqueda == "tracks") {
-			muestraTracks (res);
+		if (res.length === 0) {
 			
-			// Meto la primera al reproductor y reproduzco
-			let idTrack = res[0].id;
-			play (idTrack);
+			muestraNoResultados();
 			
 		} else {
-			muestraUsers (res);
+			
+			if (tipoBusqueda == "tracks") {
+				
+				muestraTracks (res);
+				
+				// Meto la primera al reproductor y reproduzco
+				let idTrack = res[0].id;
+				play (idTrack);
+				
+			} else {
+				muestraUsers (res);
+			};
+			
 		};
-		
 		
 		
 		// uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
@@ -286,6 +309,22 @@ function play (idTrack) {
 
 
 
+function playIfPaused() {
+	
+	widget.isPaused( (paused) => {
+		
+		if (paused) {
+			widget.play();
+		} else {
+			widget.pause();
+		};
+		
+	});
+	
+};
+
+
+
 function seleccionaTipoBusqueda(tipo, buscar = true) {
 	
 	if (tipoBusqueda != tipo) {
@@ -304,6 +343,29 @@ function seleccionaTipoBusqueda(tipo, buscar = true) {
 
 
 
+function pulsaTecla (ev) {
+	
+	// console.log( ev.key );
+	
+	
+	switch (ev.key) {
+		
+		case " ":
+			
+			console.log( widget.isPaused(()=> true) );
+			
+			playIfPaused();
+			
+		break;
+		
+		
+	}
+	
+};
+
+
+
+
 // Vars
 var tipoBusqueda = "tracks";
 
@@ -318,12 +380,16 @@ uti.$("h_inputBusqueda").addEventListener("keydown", (ev) => {
 	
 });
 
-
 uti.$("zonaDrop").addEventListener("dragover", allowDrop);
 uti.$("zonaDrop").addEventListener("drop", (ev) => drop(ev) );
 
 uti.$("h_tracks").addEventListener("click", () => seleccionaTipoBusqueda("tracks") );
 uti.$("h_users").addEventListener("click", () => seleccionaTipoBusqueda("users") );
+
+document.addEventListener("keydown", pulsaTecla);
+
+
+// $("#h_iconoLupa").on("click", pulsaBuscar() );
 
 
 
@@ -360,6 +426,7 @@ function getWidget() {
 };
 
 var widget = getWidget();
+
 
 
 

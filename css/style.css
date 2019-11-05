@@ -38,7 +38,7 @@ body {
     margin-left: 128px;
     margin-right: 128px;
     background: white;
-    height: 100vh;
+    height: 90vh;
 }
 
 /* ZONA DROP */
@@ -76,7 +76,8 @@ body {
 .cajaHeader {
     margin-top: 0;
     background: rgb(51,51,51);
-    height: 48px;
+    /* height: 48px; */
+    height: 6vh;
     width: 100%;
     font: 100 14px/1.5 Interstate,Lucida Grande,Arial,sans-serif;
 }
@@ -88,8 +89,10 @@ body {
 }
 
 .h_logo {
-    height: 48px;
+    /* height: 48px; */
+    height: 6vh;
 }
+
 
 
 /* BUSQUEDA */
@@ -120,6 +123,25 @@ body {
     background: chocolate;
     border-radius: 30%;
 }
+
+
+
+/* ICONOS */
+.cajaIconos {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+    width: 100%;   
+}
+
+.h_bindings {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    
+    margin-left: 20px;
+}
+
 
 
 
@@ -212,3 +234,33 @@ body {
 }
 
 
+/* TOOLTIP */
+.tooltip {
+    background: none;
+    border: none;
+}
+
+
+
+/* **************** FOOTER **************** */
+
+footer {
+    display: flex;
+    justify-content: center;
+}
+
+.cajaFooter {
+    margin-left: 128px;
+    margin-right: 128px;
+    position: relative;
+    /* background: #333; */
+    background: rgb(255, 255, 255);
+    height: 4vh;
+    bottom: 0;
+    width: 100%;
+    font: 100 14px/1.5 Interstate,Lucida Grande,Arial,sans-serif;
+}
+
+.textoFooter {
+    color: rgb(116, 116, 116);
+}

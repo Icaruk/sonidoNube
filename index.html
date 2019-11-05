@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>sonidoNube</title>
+	<link rel="stylesheet" href="https://unpkg.com/microtip/microtip.css">
 	<link rel="stylesheet" href="css/style.css">
 	<base href="http://127.0.0.1:5500/">
 </head>
@@ -16,17 +17,31 @@
 	<!-- HEADER -->
 	<div class="cajaHeader">
 		<div class="interiorHeader">
-			<img class="h_logo" src="img/logo_header.jpg">
+			
+			<a href="/"><img class="h_logo" src="img/logo_header.jpg"></a>
+			
 			<div class="cajaBusqueda">
 				<input class="h_inputBusqueda" id="h_inputBusqueda" type="text" placeholder="Buscar">
 				<img class="h_iconoLupa" id="h_iconoLupa" src="img/lupa.png">
 				
-				<img id="h_tracks" class="h_iconos h_selected" src="img/wave_b.png">
-				<img id="h_users" class="h_iconos" src="img/user_b.png">
+				<button class="tooltip" aria-label="Buscar canciones" data-microtip-position="bottom" role="tooltip">
+					<img id="h_tracks" class="h_iconos h_selected" src="img/wave_b.png">		
+				</button>
 				
+				<button class="tooltip" aria-label="Buscar usuarios" data-microtip-position="bottom" role="tooltip">
+					<img id="h_users" class="h_iconos" src="img/user_b.png">
+				</button>
 			</div>
 			
+			<div class="cajaIconos">
+				<button class="tooltip"aria-label="Espacio: play / pause" data-microtip-position="bottom" role="tooltip" disabled>
+					<img class="h_bindings" src="img/keyboard.png">
+				</button>
+				
+			</div>
+				
 		</div>
+
 	</div>
 	
 	
@@ -99,13 +114,24 @@
 	</div>
 	
 	
-	
 	<!-- SCRIPTS -->
+	
+	<!-- SC -->
 	<script src="https://connect.soundcloud.com/sdk/sdk-3.3.2.js"></script>
+	<!-- SC WIDGET -->
 	<script src="https://w.soundcloud.com/player/api.js"></script>
-	<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+	<!-- CUSTOM -->
 	<script src="js/uti.js"></script>
 	<script src="js/app.js"></script>
+	
+	
+	
+	<!-- FOOTER -->
+	<footer>
+		<div class="cajaFooter cenXY">
+			<a class="textoFooter" href="https://github.com/Icaruk" target="_blank">icaruk.dev</a>
+		</div>	
+	</footer>
 	
 </body>
 </html>
