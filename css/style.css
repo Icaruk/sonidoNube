@@ -91,6 +91,11 @@ body {
 .h_logo {
     /* height: 48px; */
     height: 6vh;
+    
+    animation-duration: 1s;
+    transition-timing-function: ease-out;
+    animation-name: comeFromLeft;
+
 }
 
 
@@ -273,7 +278,11 @@ footer {
 .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black;
+    /* border-bottom: 1px dotted black; */
+    
+    animation-duration: 1s;
+    animation-name: fadeIn;
+    
 }
 
 /* Tooltip text */
@@ -281,7 +290,7 @@ footer {
     visibility: hidden;
     width: 300px;
     background-color: #555;
-    color: #fff;
+    color: rgb(126, 9, 9);
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
@@ -290,8 +299,12 @@ footer {
     top: 125%;
     left: 50%;
     margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
+    
+    
+    /* Anim */
+    opacity: 0;    
+    transition: opacity 0.3s, transform 0.5s;
+    
 }
 
 /* Arrow */
@@ -311,5 +324,34 @@ footer {
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
     visibility: visible;
+    
     opacity: 1;
+    transform: translateY(15px);
+    
+}
+
+
+
+@keyframes fadeIn {
+	from {
+		opacity: 0%;
+        transform: scale(0.8, 0.8);
+	}
+
+	to {
+		opacity: 100%;
+        transform: scale(1, 1);
+	}
+}
+
+
+
+@keyframes comeFromLeft {
+	from {
+        transform: translateX(-300px);
+	}
+
+	to {
+        transform: translateX(0px);
+	}
 }

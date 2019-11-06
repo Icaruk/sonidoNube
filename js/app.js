@@ -1,7 +1,7 @@
 
 /*
 	Pendiente:
-		- Bindeos UP DOWN para volumne, LEFT RIGHT para +- 5 segundos
+		- Botón autoplay
 		- Paginación https://developers.soundcloud.com/docs/api/guide#pagination
 	.
 	
