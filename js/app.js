@@ -1,6 +1,7 @@
 
 /*
 	Pendiente:
+		- Bindeos UP DOWN para volumne, LEFT RIGHT para +- 5 segundos
 		- Paginación https://developers.soundcloud.com/docs/api/guide#pagination
 	.
 	
@@ -258,39 +259,6 @@ function pulsaBuscar (userName = "") {
 
 
 
-function dragStart(ev, idTrack) {
-	
-	ev.dataTransfer.setData("idTrack", idTrack);
-	
-	uti.showEle("zonaDrop", true);
-	uti.showEle("reproductor", false);	
-	
-};
-
-function dragEnd() {
-	
-	uti.showEle("zonaDrop", false);
-	uti.showEle("reproductor", true);	
-	
-};
-
-function allowDrop(ev) {
-	ev.stopPropagation();
-	ev.preventDefault();
-};
-
-function drop(ev) {
-	
-	ev.stopPropagation();
-	ev.preventDefault();
-	
-	let idTrack = ev.dataTransfer.getData("idTrack");
-	play(idTrack);
-	
-};
-
-
-
 function play (idTrack) {
 	
 	// uti.$("reproductor").src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`;
@@ -325,6 +293,27 @@ function playIfPaused() {
 
 
 
+function raiseVolume(n) {
+	
+	widget.getVolume( (volume) => {
+		widget.setVolume(volume + n);
+	});
+	
+};
+
+
+
+function skipTime(ms) {
+	
+	widget.getPosition( (msActuales) => {
+		widget.seekTo(msActuales + ms);
+	});
+	
+};
+
+
+
+
 function seleccionaTipoBusqueda(tipo, buscar = true) {
 	
 	if (tipoBusqueda != tipo) {
@@ -343,6 +332,39 @@ function seleccionaTipoBusqueda(tipo, buscar = true) {
 
 
 
+function dragStart(ev, idTrack) {
+	
+	ev.dataTransfer.setData("idTrack", idTrack);
+	
+	uti.showEle("zonaDrop", true);
+	uti.showEle("reproductor", false);	
+	
+};
+
+function dragEnd() {
+	
+	uti.showEle("zonaDrop", false);
+	uti.showEle("reproductor", true);	
+	
+};
+
+function allowDrop(ev) {
+	ev.stopPropagation();
+	ev.preventDefault();
+};
+
+function drop(ev) {
+	
+	ev.stopPropagation();
+	ev.preventDefault();
+	
+	let idTrack = ev.dataTransfer.getData("idTrack");
+	play(idTrack);
+	
+};
+
+
+
 function pulsaTecla (ev) {
 	
 	// console.log( ev.key );
@@ -351,17 +373,30 @@ function pulsaTecla (ev) {
 	switch (ev.key) {
 		
 		case " ":
-			
-			console.log( widget.isPaused(()=> true) );
-			
 			playIfPaused();
-			
 		break;
 		
+		case "ArrowUp": 
+			raiseVolume(5);
+		break;
+		
+		case "ArrowDown": 
+			raiseVolume(-5);
+		break;
+		
+		case "ArrowLeft": 
+			skipTime(-5 * 1000);
+		break;
+		
+		case "ArrowRight": 
+			skipTime(5 * 1000);
+		break;
 		
 	}
 	
 };
+
+
 
 
 
@@ -406,20 +441,6 @@ function getWidget() {
 	
 	let widgetIframe = document.getElementById("reproductor");
 	let widget = SC.Widget(widgetIframe);
-	let newSoundUrl = 'https://api.soundcloud.com/tracks/13692671';
-	
-	
-	widget.bind(SC.Widget.Events.READY, function () {
-		
-		// load new widget
-		widget.bind(SC.Widget.Events.FINISH, function () {
-			widget.load(newSoundUrl, {
-				show_artwork: true
-			});
-		});
-		
-	});
-	
 	
 	return widget;
 	

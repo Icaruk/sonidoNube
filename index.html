@@ -18,7 +18,7 @@
 	<div class="cajaHeader">
 		<div class="interiorHeader">
 			
-			<a href="/"><img class="h_logo" src="img/logo_header.jpg"></a>
+			<a href="/"><img class="h_logo" title="That&apos;s what this widget is" src="img/logo_header.jpg"></a>
 			
 			<div class="cajaBusqueda">
 				<input class="h_inputBusqueda" id="h_inputBusqueda" type="text" placeholder="Buscar">
@@ -34,14 +34,18 @@
 			</div>
 			
 			<div class="cajaIconos">
-				<button class="tooltip"aria-label="Espacio: play / pause" data-microtip-position="bottom" role="tooltip" disabled>
+				
+				<div class="tooltip">
 					<img class="h_bindings" src="img/keyboard.png">
+					<span class="tooltiptext">Espacio: play / pause<br>Flecha izq/der: avanzar o retroceder 5 segundos<br>Flecha arriba/abajo: subir/bajar volumen</span>
+				</div>
+					
 				</button>
 				
 			</div>
 				
 		</div>
-
+		
 	</div>
 	
 	
@@ -120,6 +124,8 @@
 	<script src="https://connect.soundcloud.com/sdk/sdk-3.3.2.js"></script>
 	<!-- SC WIDGET -->
 	<script src="https://w.soundcloud.com/player/api.js"></script>
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 	<!-- CUSTOM -->
 	<script src="js/uti.js"></script>
 	<script src="js/app.js"></script>
