@@ -234,14 +234,18 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1;
 }
 
 .tr_img {
     width: 100px;
     align-self: center;
     border-radius: 10%;
-    z-index: 2;
+}
+
+.tr_imgSel {
+    border-style: solid;
+    border-width: 3px;
+    border-color: rgb(24, 143, 255);
 }
 
 .tr_artista {

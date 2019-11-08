@@ -102,7 +102,13 @@ function muestraTracks (info) {
 		// Le meto EH
 		nodo.addEventListener("dragstart", (ev) => dragStart(ev, _x.id) );
 		nodo.addEventListener("dragend", dragEnd );
-		nodo.addEventListener("click", () => play(_x.id) );
+		nodo.addEventListener("click", () => {
+			
+			arrastrandoImg = nodo.querySelector("img");
+			marcaTrack();
+			
+			play(_x.id);
+		});
 		
 		
 		// Tamaño de la fuente del título
@@ -324,8 +330,6 @@ function clickAutoPlay() {
 		uti.$("h_autoplay").classList.remove("h_selected");
 	};
 	
-	console.log( autoPlay );
-	
 };
 
 
@@ -355,6 +359,8 @@ function dragStart(ev, idTrack) {
 	uti.showEle("zonaDrop", true);
 	uti.showEle("reproductor", false);	
 	
+	arrastrandoImg = ev.target;
+	
 };
 
 function dragEnd() {
@@ -376,6 +382,21 @@ function drop(ev) {
 	
 	let idTrack = ev.dataTransfer.getData("idTrack");
 	play(idTrack);
+	
+	marcaTrack();
+	
+};
+
+
+
+function marcaTrack() {
+	
+	if (arrastrandoImg_old) {
+		arrastrandoImg_old.classList.remove("tr_imgSel");
+	};
+	
+	arrastrandoImg.classList.add("tr_imgSel");
+	arrastrandoImg_old = arrastrandoImg;
 	
 };
 
@@ -421,10 +442,12 @@ function pulsaTecla (ev) {
 var tipoBusqueda = "tracks";
 var autoPlay = false;
 
+var arrastrandoImg_old;
+var arrastrandoImg;
 
 
 // EHs
-uti.$("h_iconoLupa").addEventListener("click", pulsaBuscar() );
+uti.$("h_iconoLupa").addEventListener("click", pulsaBuscar );
 uti.$("h_inputBusqueda").addEventListener("keydown", (ev) => {
 	if (ev.key == "Enter") {
 		pulsaBuscar();
@@ -464,4 +487,6 @@ uti.showEle("zonaDrop", false);
 var widget = SC.Widget (document.getElementById("reproductor") );
 
 
+// Primera búsqueda
+pulsaBuscar();
 
