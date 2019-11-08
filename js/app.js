@@ -266,7 +266,7 @@ function play (idTrack) {
 		
 	// widget.load(`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`, {auto_play: true, show_playcount: true});
 	widget.load(`https%3A//api.soundcloud.com/tracks/${idTrack}`, {
-		auto_play: true,
+		auto_play: autoplay,
 		show_playcount: true,
 		sharing: false
 	});
@@ -403,6 +403,7 @@ function pulsaTecla (ev) {
 
 // Vars
 var tipoBusqueda = "tracks";
+var autoplay = true;
 
 
 

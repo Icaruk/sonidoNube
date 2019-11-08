@@ -279,10 +279,6 @@ footer {
     position: relative;
     display: inline-block;
     /* border-bottom: 1px dotted black; */
-    
-    animation-duration: 1s;
-    animation-name: fadeIn;
-    
 }
 
 /* Tooltip text */
@@ -299,11 +295,6 @@ footer {
     top: 125%;
     left: 50%;
     margin-left: -60px;
-    
-    
-    /* Anim */
-    opacity: 0;    
-    transition: opacity 0.3s, transform 0.5s;
     
 }
 
@@ -331,6 +322,9 @@ footer {
 }
 
 
+
+/* animation-duration: 1s;
+animation-name: fadeIn; */
 
 @keyframes fadeIn {
 	from {
