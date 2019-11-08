@@ -122,6 +122,9 @@ body {
 .h_iconos {
     width: 22px;
     margin-right: 10px;
+
+    animation-duration: 1s;
+    animation-name: fadeIn;
 }
 
 .h_selected {
@@ -145,7 +148,24 @@ body {
     height: 30px;
     
     margin-left: 20px;
+    
+    animation-duration: 1s;
+    animation-name: fadeIn;
+    
 }
+
+.h_autoplay {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    
+    margin-left: 5px;
+    
+    animation-duration: 1s;
+    animation-name: fadeIn;
+}
+
+
 
 
 
@@ -279,46 +299,44 @@ footer {
     position: relative;
     display: inline-block;
     /* border-bottom: 1px dotted black; */
-}
-
-/* Tooltip text */
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 300px;
-    background-color: #555;
-    color: rgb(126, 9, 9);
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    top: 125%;
-    left: 50%;
-    margin-left: -60px;
     
 }
 
-/* Arrow */
-/* 
-.tooltip .tooltiptext::after {
-  content: " ";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent #555;
-} */
+/* Tooltip text */
+.tooltiptext {
+    
+    /* width: fit-content;
+    min-width: 100px;
+    padding: 5px; */
+    
+    position: absolute;
+    width: 250px;
+    padding: 5px 0;
+    top: 125%;
+    left: 50%;
+    margin-left: -60px;
+       
+    background-color: #555;
+    color: rgb(255, 255, 255);
+    
+    text-align: center;
+    border-radius: 6px;
+    
+    z-index: 1;
+    font-size: 12px;
+    
+    opacity: 0;
+    transition: 0.5s;
+    visibility: hidden;
+}
 
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
-    visibility: visible;
     
     opacity: 1;
-    transform: translateY(15px);
-    
+    transform: translateY(10px);
+    visibility: visible;
 }
 
 

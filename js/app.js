@@ -172,6 +172,7 @@ function muestraUsers (info) {
 };
 
 
+
 function muestraNoResultados () {
 	
 	// Muestro reproductor
@@ -266,11 +267,11 @@ function play (idTrack) {
 		
 	// widget.load(`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${idTrack}`, {auto_play: true, show_playcount: true});
 	widget.load(`https%3A//api.soundcloud.com/tracks/${idTrack}`, {
-		auto_play: autoplay,
+		auto_play: autoPlay,
 		show_playcount: true,
 		sharing: false
 	});
-	
+		
 	// widget.play(); // no es necesario por el autoplay
 	
 };
@@ -311,6 +312,21 @@ function skipTime(ms) {
 	
 };
 
+
+
+function clickAutoPlay() {
+	
+	autoPlay = !autoPlay;
+	
+	if (autoPlay) {
+		uti.$("h_autoplay").classList.add("h_selected");
+	} else {
+		uti.$("h_autoplay").classList.remove("h_selected");
+	};
+	
+	console.log( autoPlay );
+	
+};
 
 
 
@@ -403,7 +419,7 @@ function pulsaTecla (ev) {
 
 // Vars
 var tipoBusqueda = "tracks";
-var autoplay = true;
+var autoPlay = false;
 
 
 
@@ -422,6 +438,9 @@ uti.$("zonaDrop").addEventListener("drop", drop );
 uti.$("h_tracks").addEventListener("click", () => seleccionaTipoBusqueda("tracks") );
 uti.$("h_users").addEventListener("click", () => seleccionaTipoBusqueda("users") );
 
+uti.$("h_autoplay").addEventListener("click", clickAutoPlay );
+
+
 document.addEventListener("keydown", pulsaTecla);
 
 
@@ -433,23 +452,16 @@ document.addEventListener("keydown", pulsaTecla);
 // Init
 // -------------------------
 
+// Autoplay en true
+clickAutoPlay();
+
+
 // Oculto la zona de drop
 uti.showEle("zonaDrop", false);
 
 
 // Obtengo el widget
-function getWidget() {
-	
-	let widgetIframe = document.getElementById("reproductor");
-	let widget = SC.Widget(widgetIframe);
-	
-	return widget;
-	
-};
-
-var widget = getWidget();
-
-
+var widget = SC.Widget (document.getElementById("reproductor") );
 
 
 

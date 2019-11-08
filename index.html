@@ -22,15 +22,18 @@
 			
 			<div class="cajaBusqueda">
 				<input class="h_inputBusqueda" id="h_inputBusqueda" type="text" placeholder="Buscar">
-				<img class="h_iconoLupa" id="h_iconoLupa" src="img/lupa.png">
+					<img class="h_iconoLupa" id="h_iconoLupa" src="img/lupa.png">
 				
-				<button class="tooltip" aria-label="Buscar canciones" data-microtip-position="bottom" role="tooltip">
+				<div class="tooltip">
+					<span class="tooltiptext">Buscar canciones</span>
 					<img id="h_tracks" class="h_iconos h_selected" src="img/wave_b.png">		
-				</button>
+				</div>
 				
-				<button class="tooltip" aria-label="Buscar usuarios" data-microtip-position="bottom" role="tooltip">
+				<div class="tooltip">
+					<span class="tooltiptext">Buscar usuarios</span>
 					<img id="h_users" class="h_iconos" src="img/user_b.png">
-				</button>
+				</div>
+				
 			</div>
 			
 			<div class="cajaIconos">
@@ -38,6 +41,11 @@
 				<div class="tooltip">
 					<img class="h_bindings" src="img/keyboard.png">
 					<span class="tooltiptext">Espacio: play / pause<br>Flecha izq/der: avanzar o retroceder 5 segundos<br>Flecha arriba/abajo: subir/bajar volumen</span>
+				</div>
+				
+				<div class="tooltip">
+					<img id="h_autoplay" class="h_autoplay" src="img/autoplay.png">
+					<span class="tooltiptext">Autoplay on/off</span>
 				</div>
 					
 				</button>
