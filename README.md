@@ -3,9 +3,13 @@
 
 Es una pequeña aplicación capaz de realizar búsquedas en soundcloud y reproducir canciones.
 
+# Demo 🚀
+
+[Click aquí](https://icaruk.github.io/sonidoNube/)
+
 # Características 📃
 
-- 🔊 Reproduce canciones de soundcloud.
+- 🔊 Reproducción de canciones de soundcloud.
 - 🔍 Búsqueda de canciones y usuarios.
     - Click en un usuario para ver todas sus canciones.
 - ⌨️ Teclas rápidas:
