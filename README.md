@@ -17,3 +17,7 @@ Es una pequeña aplicación capaz de realizar búsquedas en soundcloud y reprodu
 	- ← → : avanzar / retroceder 5 segundos.
 	- ↑ ↓ : subir / bajar volumen.
 - ♻️ Autoplay opcional (activado por defecto).
+
+# Preview
+
+![](https://i.gyazo.com/8b2253f73c797e64ee69249a227ae97f.png)
