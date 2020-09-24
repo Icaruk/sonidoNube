@@ -73,7 +73,7 @@ function muestraTracks (info) {
 		
 		
 		// Saco algunos datos
-		let strImg = _x.artwork_url ? _x.artwork_url : "/img/artwork_default.jpg"; // https://i1.sndcdn.com/avatars-000681921569-32qkcn-t500x500.jpg
+		let strImg = _x.artwork_url ? _x.artwork_url : "img/artwork_default.jpg"; // https://i1.sndcdn.com/avatars-000681921569-32qkcn-t500x500.jpg
 		let strTitulo = _x.title;
 		
 		let fecha = new Date (_x.created_at);
